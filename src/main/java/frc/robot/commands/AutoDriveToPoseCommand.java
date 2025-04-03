@@ -103,8 +103,8 @@ public class AutoDriveToPoseCommand extends Command {
     thetaMaxAccelerationAuto.initDefault(8.0);
     thetaMaxAccelerationAutoTop.initDefault(6.0);
 
-    driveTolerance.initDefault(0.01);
-    thetaTolerance.initDefault(Units.degreesToRadians(1.0));
+    driveTolerance.initDefault(0.001);
+    thetaTolerance.initDefault(Units.degreesToRadians(0.1));
     linearFFMinRadius.initDefault(0.01);
     linearFFMaxRadius.initDefault(0.05);
     thetaFFMinError.initDefault(Units.degreesToRadians(2.0));
@@ -116,7 +116,7 @@ public class AutoDriveToPoseCommand extends Command {
     minThetaFFSReset.initDefault(0.1);
   }
 
-  private final Drive drive;
+  private Drive drive;
   private final Supplier<Pose2d> target;
   private final Elevator elevator;
   private TrapezoidProfile driveProfile;
@@ -133,7 +133,7 @@ public class AutoDriveToPoseCommand extends Command {
   private double driveErrorAbs = 0.0;
   private double thetaErrorAbs = 0.0;
   @Getter private boolean running = false;
-  private Supplier<Pose2d> robot = ()->new Pose2d();
+  private Supplier<Pose2d> robot = ()->drive.getPose();
 
   private Supplier<Translation2d> linearFF = () -> Translation2d.kZero;
   private DoubleSupplier omegaFF = () -> 0.0;

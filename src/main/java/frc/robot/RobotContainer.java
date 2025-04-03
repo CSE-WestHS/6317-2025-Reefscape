@@ -375,7 +375,7 @@ public class RobotContainer {
 
     //Climb override
 
-
+    driverController.leftStick().onTrue(new frc.robot.commands.AutoDriveToPoseCommand(drive, ()->UtilitiesFieldSectioning.L1, ()->drive.getPose(),elevator));
 
 
 
